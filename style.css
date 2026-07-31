@@ -8,12 +8,19 @@
     padding:0;
     box-sizing:border-box;
     scroll-behavior:smooth;
-    font-family:'Poppins',sans-serif;
+    font-family:'Outfit',sans-serif;
 }
 
 body{
-    background:#0f172a;
+    background:
+    radial-gradient(circle at top right,#1d4ed8 0%,transparent 25%),
+    radial-gradient(circle at bottom left,#0ea5e9 0%,transparent 20%),
+    linear-gradient(135deg,#020617,#0f172a,#111827);
+
     color:#fff;
+    overflow-x:hidden;
+    font-family:'Outfit',sans-serif;
+}
 }
 
 /* Header */
