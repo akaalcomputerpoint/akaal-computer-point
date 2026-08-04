@@ -1618,3 +1618,80 @@ font-size:22px;
 }
 
 }
+
+.hero-image{
+position:relative;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.hero-image img{
+width:100%;
+max-width:520px;
+border-radius:25px;
+box-shadow:0 35px 80px rgba(37,99,235,.25);
+animation:floatImage 5s ease-in-out infinite;
+}
+
+.floating-card{
+position:absolute;
+background:#fff;
+padding:14px 18px;
+border-radius:15px;
+display:flex;
+align-items:center;
+gap:10px;
+font-weight:600;
+box-shadow:0 15px 40px rgba(0,0,0,.12);
+animation:floatCard 4s ease-in-out infinite;
+}
+
+.floating-card i{
+color:#2563EB;
+font-size:22px;
+}
+
+.card1{
+top:20px;
+left:-20px;
+}
+
+.card2{
+top:60px;
+right:-30px;
+}
+
+.card3{
+bottom:70px;
+left:-30px;
+}
+
+.card4{
+bottom:20px;
+right:0;
+}
+
+@keyframes floatImage{
+
+0%,100%{
+transform:translateY(0);
+}
+
+50%{
+transform:translateY(-15px);
+}
+
+}
+
+@keyframes floatCard{
+
+0%,100%{
+transform:translateY(0);
+}
+
+50%{
+transform:translateY(-10px);
+}
+
+}
