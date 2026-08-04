@@ -1781,3 +1781,115 @@ transform:translateY(-10px);
     padding:16px 34px;
     font-weight:700;
 }
+
+/*==============================
+PREMIUM SERVICE CARDS
+===============================*/
+
+.services{
+padding:100px 0;
+background:#f8fbff;
+}
+
+.services-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:30px;
+}
+
+.service-card{
+background:#fff;
+border-radius:25px;
+padding:35px 30px;
+text-align:center;
+transition:.45s;
+position:relative;
+overflow:hidden;
+box-shadow:0 15px 40px rgba(0,0,0,.06);
+}
+
+.service-card::before{
+
+content:"";
+position:absolute;
+width:250px;
+height:250px;
+background:#2563eb;
+border-radius:50%;
+top:-170px;
+right:-170px;
+opacity:.08;
+transition:.4s;
+
+}
+
+.service-card:hover{
+
+transform:translateY(-15px);
+box-shadow:0 25px 60px rgba(37,99,235,.18);
+
+}
+
+.service-card:hover::before{
+
+transform:scale(1.5);
+
+}
+
+.service-icon{
+
+width:85px;
+height:85px;
+margin:auto;
+border-radius:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#2563eb,#06b6d4);
+color:#fff;
+font-size:35px;
+margin-bottom:25px;
+transition:.4s;
+
+}
+
+.service-card:hover .service-icon{
+
+transform:rotate(360deg);
+
+}
+
+.service-card h3{
+
+font-size:24px;
+margin-bottom:15px;
+font-weight:700;
+
+}
+
+.service-card p{
+
+color:#6b7280;
+line-height:1.8;
+
+}
+
+.service-card a{
+
+display:inline-block;
+margin-top:20px;
+padding:12px 25px;
+border-radius:50px;
+background:#2563eb;
+color:#fff;
+text-decoration:none;
+font-weight:600;
+transition:.3s;
+
+}
+
+.service-card a:hover{
+
+background:#1d4ed8;
+
+}
