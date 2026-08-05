@@ -1,253 +1,128 @@
-/*==========================================
-   AKAAL COMPUTER POINT v2.0
-   Premium JavaScript
-==========================================*/
+/*=====================================
+        DOM ELEMENTS
+=====================================*/
 
-// ===========================
-// Mobile Menu
-// ===========================
-
+const header = document.querySelector("header");
 const menuBtn = document.querySelector(".menu-btn");
-const navbar = document.querySelector(".navbar");
+const navLinks = document.querySelector(".nav-links");
+const topBtn = document.getElementById("topBtn");
+const progressBar = document.querySelector(".progress-bar");
 
-menuBtn.addEventListener("click", () => {
-    navbar.classList.toggle("active");
+/*=====================================
+        STICKY NAVBAR
+=====================================*/
 
-    menuBtn.innerHTML = navbar.classList.contains("active")
-        ? '<i class="fa-solid fa-xmark"></i>'
-        : '<i class="fa-solid fa-bars"></i>';
+window.addEventListener("scroll", () => {
+
+    if (window.scrollY > 80) {
+        header.classList.add("sticky");
+    } else {
+        header.classList.remove("sticky");
+    }
+
 });
 
+/*=====================================
+        MOBILE MENU
+=====================================*/
 
-// Close menu after clicking any link
+menuBtn.addEventListener("click", () => {
 
-document.querySelectorAll(".navbar a").forEach(link => {
+    navLinks.classList.toggle("active");
+    menuBtn.classList.toggle("open");
+
+});
+
+/*=====================================
+        CLOSE MENU
+=====================================*/
+
+document.querySelectorAll(".nav-links a").forEach(link => {
 
     link.addEventListener("click", () => {
 
-        navbar.classList.remove("active");
-
-        menuBtn.innerHTML =
-        '<i class="fa-solid fa-bars"></i>';
+        navLinks.classList.remove("active");
+        menuBtn.classList.remove("open");
 
     });
 
 });
 
-
-// ===========================
-// Sticky Header
-// ===========================
-
-const header = document.querySelector(".header");
-
-window.addEventListener("scroll", () => {
-
-    if (window.scrollY > 80) {
-
-        header.style.padding = "12px 0";
-        header.style.boxShadow =
-        "0 15px 35px rgba(0,0,0,.08)";
-
-    } else {
-
-        header.style.padding = "18px 0";
-        header.style.boxShadow = "none";
-
-    }
-
-});
-
-
-// ===========================
-// Scroll Top Button
-// ===========================
-
-const scrollBtn =
-document.getElementById("scrollTop");
+/*=====================================
+        BACK TO TOP
+=====================================*/
 
 window.addEventListener("scroll", () => {
 
     if (window.scrollY > 400) {
 
-        scrollBtn.style.display = "flex";
+        topBtn.classList.add("show");
 
     } else {
 
-        scrollBtn.style.display = "none";
+        topBtn.classList.remove("show");
 
     }
 
 });
 
-
-scrollBtn.addEventListener("click", () => {
+topBtn.addEventListener("click", () => {
 
     window.scrollTo({
 
-        top:0,
-
-        behavior:"smooth"
+        top: 0,
+        behavior: "smooth"
 
     });
 
 });
 
+/*=====================================
+      SCROLL PROGRESS BAR
+=====================================*/
 
-// ===========================
-// Active Navbar Link
-// ===========================
+window.addEventListener("scroll", () => {
 
-const sections =
-document.querySelectorAll("section");
+    let scrollTop = window.scrollY;
 
-const navLinks =
-document.querySelectorAll(".navbar a");
+    let height =
+        document.documentElement.scrollHeight -
+        window.innerHeight;
 
-window.addEventListener("scroll",()=>{
+    let progress =
+        (scrollTop / height) * 100;
 
-let current = "";
+    progressBar.style.width = progress + "%";
 
-sections.forEach(section=>{
+});/*=====================================
+      ACTIVE NAVIGATION
+=====================================*/
 
-const sectionTop = section.offsetTop - 120;
+const sections = document.querySelectorAll("section");
+const navItems = document.querySelectorAll(".nav-links a");
 
-const sectionHeight = section.clientHeight;
+window.addEventListener("scroll", () => {
 
-if(window.scrollY >= sectionTop){
+    let current = "";
 
-current = section.getAttribute("id");
+    sections.forEach(section => {
 
-}
+        const sectionTop = section.offsetTop - 120;
+        const sectionHeight = section.clientHeight;
 
-});
+        if (pageYOffset >= sectionTop) {
+            current = section.getAttribute("id");
+        }
 
-navLinks.forEach(link=>{
+    });
 
-link.classList.remove("active");
+    navItems.forEach(link => {
 
-if(link.getAttribute("href")==="#"+current){
+        link.classList.remove("active");
 
-link.classList.add("active");
+        if (link.getAttribute("href") === "#" + current) {
 
-}
-
-});
-
-});
-
-
-// ===========================
-// Smooth Fade Animation
-// ===========================
-
-const revealItems =
-document.querySelectorAll(
-
-".service-card,.why-card,.counter-card,.review-card,.process-card"
-
-);
-
-const observer = new IntersectionObserver((entries)=>{
-
-entries.forEach(entry=>{
-
-if(entry.isIntersecting){
-
-entry.target.style.opacity="1";
-
-entry.target.style.transform="translateY(0)";
-
-}
-
-});
-
-},{
-threshold:.15
-});
-
-revealItems.forEach(item=>{
-
-item.style.opacity="0";
-
-item.style.transform="translateY(50px)";
-
-item.style.transition=".7s ease";
-
-observer.observe(item);
-
-});
-
-
-// ===========================
-// Counter Animation
-// ===========================
-
-const counters =
-document.querySelectorAll(".counter-card h2");
-
-const speed = 150;
-
-counters.forEach(counter=>{
-
-const update = ()=>{
-
-const target =
-+counter.innerText.replace("+","");
-
-const count =
-+counter.innerText.replace("+","");
-
-const increment =
-target/speed;
-
-if(count<target){
-
-counter.innerText =
-Math.ceil(count+increment)+"+";
-
-setTimeout(update,20);
-
-}
-
-}
-
-update();
-
-});/*==========================================
-        FAQ ACCORDION
-==========================================*/
-
-const faqItems = document.querySelectorAll(".faq-item");
-
-faqItems.forEach(item => {
-
-    const answer = item.querySelector("p");
-
-    answer.style.display = "none";
-
-    item.addEventListener("click", () => {
-
-        faqItems.forEach(other => {
-
-            if (other !== item) {
-
-                other.querySelector("p").style.display = "none";
-                other.classList.remove("active");
-
-            }
-
-        });
-
-        if (answer.style.display === "block") {
-
-            answer.style.display = "none";
-            item.classList.remove("active");
-
-        } else {
-
-            answer.style.display = "block";
-            item.classList.add("active");
+            link.classList.add("active");
 
         }
 
@@ -255,10 +130,215 @@ faqItems.forEach(item => {
 
 });
 
+/*=====================================
+      COUNTER ANIMATION
+=====================================*/
 
-/*==========================================
-        REVIEW AUTO SLIDER
-==========================================*/
+const counters = document.querySelectorAll(".counter");
+
+const startCounter = () => {
+
+    counters.forEach(counter => {
+
+        const target = +counter.dataset.target;
+
+        let count = 0;
+
+        const speed = target / 120;
+
+        const updateCounter = () => {
+
+            count += speed;
+
+            if (count < target) {
+
+                counter.innerText = Math.floor(count);
+
+                requestAnimationFrame(updateCounter);
+
+            } else {
+
+                counter.innerText = target + "+";
+
+            }
+
+        };
+
+        updateCounter();
+
+    });
+
+};
+
+let counterStarted = false;
+
+window.addEventListener("scroll", () => {
+
+    const section = document.querySelector(".review-counter");
+
+    if (!section) return;
+
+    const top = section.getBoundingClientRect().top;
+
+    if (top < window.innerHeight && !counterStarted) {
+
+        counterStarted = true;
+
+        startCounter();
+
+    }
+
+});
+
+/*=====================================
+      SCROLL REVEAL
+=====================================*/
+
+const revealItems = document.querySelectorAll(
+
+".service-card,.about-card,.why-card,.gallery-item,.review-card,.contact-form,.info-box"
+
+);
+
+const revealOnScroll = () => {
+
+    revealItems.forEach(item => {
+
+        const top = item.getBoundingClientRect().top;
+
+        if (top < window.innerHeight - 80) {
+
+            item.classList.add("show");
+
+        }
+
+    });
+
+};
+
+window.addEventListener("scroll", revealOnScroll);
+
+revealOnScroll();
+
+/*=====================================
+        TYPING EFFECT
+=====================================*/
+
+const typingText = document.querySelector(".typing");
+
+if (typingText) {
+
+    const words = [
+
+        "Cyber Cafe",
+
+        "PAN Card",
+
+        "Passport",
+
+        "Printing",
+
+        "Digital Services"
+
+    ];
+
+    let wordIndex = 0;
+    let charIndex = 0;
+
+    function typeWord() {
+
+        if (charIndex < words[wordIndex].length) {
+
+            typingText.textContent += words[wordIndex].charAt(charIndex);
+
+            charIndex++;
+
+            setTimeout(typeWord, 80);
+
+        } else {
+
+            setTimeout(eraseWord, 1500);
+
+        }
+
+    }
+
+    function eraseWord() {
+
+        if (charIndex > 0) {
+
+            typingText.textContent = words[wordIndex].substring(0, charIndex - 1);
+
+            charIndex--;
+
+            setTimeout(eraseWord, 40);
+
+        } else {
+
+            wordIndex++;
+
+            if (wordIndex >= words.length) {
+
+                wordIndex = 0;
+
+            }
+
+            setTimeout(typeWord, 300);
+
+        }
+
+    }
+
+    typeWord();
+
+}/*=====================================
+        GALLERY LIGHTBOX
+=====================================*/
+
+const galleryItems = document.querySelectorAll(".gallery-item img");
+const lightbox = document.querySelector(".lightbox");
+const lightboxImg = document.getElementById("lightbox-img");
+const closeBtn = document.querySelector(".close-lightbox");
+
+galleryItems.forEach(img => {
+
+    img.addEventListener("click", () => {
+
+        lightbox.classList.add("active");
+
+        lightboxImg.src = img.src;
+
+    });
+
+});
+
+if(closeBtn){
+
+closeBtn.addEventListener("click", () => {
+
+    lightbox.classList.remove("active");
+
+});
+
+}
+
+if(lightbox){
+
+lightbox.addEventListener("click", e => {
+
+    if(e.target === lightbox){
+
+        lightbox.classList.remove("active");
+
+    }
+
+});
+
+}
+
+/*=====================================
+      SIMPLE REVIEW SLIDER
+=====================================*/
 
 const reviewSlider = document.querySelector(".review-slider");
 
@@ -268,7 +348,7 @@ let scrollAmount = 0;
 
 setInterval(()=>{
 
-scrollAmount += 360;
+scrollAmount += 380;
 
 if(scrollAmount >= reviewSlider.scrollWidth){
 
@@ -288,105 +368,91 @@ behavior:"smooth"
 
 }
 
+/*=====================================
+        CUSTOM CURSOR
+=====================================*/
 
-/*==========================================
-        PARALLAX HERO
-==========================================*/
+const dot = document.querySelector(".cursor-dot");
+const outline = document.querySelector(".cursor-outline");
 
-window.addEventListener("scroll",()=>{
+document.addEventListener("mousemove",(e)=>{
 
-const hero=document.querySelector(".hero");
+if(dot && outline){
 
-if(hero){
+dot.style.left=e.clientX+"px";
+dot.style.top=e.clientY+"px";
 
-hero.style.backgroundPositionY=
-window.scrollY*0.3+"px";
+outline.style.left=e.clientX+"px";
+outline.style.top=e.clientY+"px";
+
+}
+
+});
+
+/*=====================================
+        FADE IN ANIMATION
+=====================================*/
+
+const observer=new IntersectionObserver(entries=>{
+
+entries.forEach(entry=>{
+
+if(entry.isIntersecting){
+
+entry.target.classList.add("show");
 
 }
 
 });
 
-
-/*==========================================
-        FLOATING GLASS CARD
-==========================================*/
-
-const glassCard=document.querySelector(".glass-card");
-
-if(glassCard){
-
-setInterval(()=>{
-
-glassCard.classList.toggle("floating");
-
-},2500);
-
-}
-
-
-/*==========================================
-        BUTTON RIPPLE EFFECT
-==========================================*/
-
-document.querySelectorAll(".primary-btn,.header-btn").forEach(btn=>{
-
-btn.addEventListener("click",function(e){
-
-const circle=document.createElement("span");
-
-const x=e.clientX-this.offsetLeft;
-
-const y=e.clientY-this.offsetTop;
-
-circle.style.left=x+"px";
-
-circle.style.top=y+"px";
-
-circle.className="ripple";
-
-this.appendChild(circle);
-
-setTimeout(()=>{
-
-circle.remove();
-
-},600);
-
+},{
+threshold:.15
 });
 
-});
+document.querySelectorAll(
 
+".service-card,.gallery-item,.review-card,.about-card,.why-card,.stat-card"
 
-/*==========================================
-        LOADING ANIMATION
-==========================================*/
+).forEach(el=>observer.observe(el));
 
-window.addEventListener("load",()=>{
+/*=====================================
+        CURRENT YEAR
+=====================================*/
 
-document.body.classList.add("loaded");
-
-});
-
-
-/*==========================================
-        YEAR AUTO UPDATE
-==========================================*/
-
-const year=document.querySelector("#year");
+const year=document.getElementById("year");
 
 if(year){
 
-year.innerHTML=new Date().getFullYear();
+year.textContent=new Date().getFullYear();
 
 }
 
+/*=====================================
+        PRELOADER
+=====================================*/
 
-/*==========================================
+window.addEventListener("load",()=>{
+
+const loader=document.querySelector(".loader");
+
+if(loader){
+
+loader.classList.add("hide");
+
+setTimeout(()=>{
+
+loader.remove();
+
+},600);
+
+}
+
+});
+
+/*=====================================
         CONSOLE MESSAGE
-==========================================*/
+=====================================*/
 
-console.log("%cAkaal Computer Point",
-"font-size:24px;color:#2563EB;font-weight:bold;");
-
-console.log("%cWebsite Designed with ❤️",
-"font-size:16px;color:#06B6D4;");
+console.log(
+"Akaal Computer Point Website Loaded Successfully 🚀"
+);
